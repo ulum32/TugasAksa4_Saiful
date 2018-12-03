@@ -10,8 +10,6 @@ object EndpointApi {
     }
 
     fun tampilkanListLiga():String{
-        return BuildConfig.BASE_URL +
-                "api/v1/json/${BuildConfig.API_KEY}" +
-                "/all_leagues.php"
+        return BuildConfig.BASE_URL + "api/v1/json/${BuildConfig.API_KEY}/all_leagues.php"
     }
 }

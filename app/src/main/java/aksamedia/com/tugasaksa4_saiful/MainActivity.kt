@@ -18,7 +18,6 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.EditText
-import android.widget.SearchView
 import com.google.gson.Gson
 import com.mancj.materialsearchbar.MaterialSearchBar
 import kotlinx.android.synthetic.main.activity_main.*
@@ -27,6 +26,8 @@ import org.jetbrains.anko.find
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.support.v4.onRefresh
 import android.support.v4.view.MenuItemCompat.getActionView
+import android.support.v7.widget.SearchView
+import android.view.MenuItem
 
 
 class MainActivity : AppCompatActivity(),AnkoLogger, MainView {
@@ -61,40 +62,24 @@ class MainActivity : AppCompatActivity(),AnkoLogger, MainView {
             presenter.getListLiga()
             presenter.getTeamList(namaLiga)
         }
-
-//        val search: EditText = find(R.id.search_team)
-//        search.addTextChangedListener(object : TextWatcher {
-//            override fun afterTextChanged(edit: Editable?) {
-//            }
-//
-//            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-//            }
-//
-//            override fun onTextChanged(s: CharSequence?, position: Int, p2: Int, p3: Int) {
-//                adapter.filter.filter(s.toString())
-//            }
-//        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
+        val searchItem : MenuItem = menu.findItem(R.id.action_search)
+        val searchView : SearchView = searchItem.actionView as SearchView
 
-        val mSearch = menu.findItem(R.id.action_search)
+        searchView.queryHint = "Search teams ..."
 
-        val mSearchView = mSearch.actionView as SearchView
-        mSearchView.queryHint = "Search teams ..."
-
-        mSearchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 return false
             }
-
             override fun onQueryTextChange(newText: String): Boolean {
                 adapter.getFilter().filter(newText)
                 return true
             }
         })
-
         return super.onCreateOptionsMenu(menu)
     }
 

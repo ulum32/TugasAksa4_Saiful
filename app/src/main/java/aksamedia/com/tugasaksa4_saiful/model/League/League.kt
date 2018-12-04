@@ -1,4 +1,4 @@
-package aksamedia.com.tugasaksa4_saiful.model
+package aksamedia.com.tugasaksa4_saiful.model.League
 
 import com.google.gson.annotations.SerializedName
 

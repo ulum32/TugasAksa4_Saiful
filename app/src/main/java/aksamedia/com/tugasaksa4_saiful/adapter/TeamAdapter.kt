@@ -1,7 +1,7 @@
 package aksamedia.com.tugasaksa4_saiful.adapter
 
 import aksamedia.com.tugasaksa4_saiful.R
-import aksamedia.com.tugasaksa4_saiful.model.Team
+import aksamedia.com.tugasaksa4_saiful.model.Team.Team
 import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater

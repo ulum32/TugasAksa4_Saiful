@@ -1,7 +1,7 @@
 package aksamedia.com.tugasaksa4_saiful.contract
 
-import aksamedia.com.tugasaksa4_saiful.model.League
-import aksamedia.com.tugasaksa4_saiful.model.Team
+import aksamedia.com.tugasaksa4_saiful.model.League.League
+import aksamedia.com.tugasaksa4_saiful.model.Team.Team
 
 interface MainView {
     fun showLoading()

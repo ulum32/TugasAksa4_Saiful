@@ -3,12 +3,11 @@ package aksamedia.com.tugasaksa4_saiful.presenter
 import aksamedia.com.tugasaksa4_saiful.api.ApiRepository
 import aksamedia.com.tugasaksa4_saiful.api.EndpointApi
 import aksamedia.com.tugasaksa4_saiful.contract.MainView
-import aksamedia.com.tugasaksa4_saiful.model.LeagueResponse
-import aksamedia.com.tugasaksa4_saiful.model.TeamResponse
+import aksamedia.com.tugasaksa4_saiful.model.League.LeagueResponse
+import aksamedia.com.tugasaksa4_saiful.model.Team.TeamResponse
 import com.google.gson.Gson
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.info
 import org.jetbrains.anko.uiThread
 
 class MainPresenter(private val view: MainView,

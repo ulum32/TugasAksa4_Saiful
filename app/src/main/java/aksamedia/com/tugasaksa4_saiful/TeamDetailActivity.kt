@@ -3,8 +3,8 @@ package aksamedia.com.tugasaksa4_saiful
 import aksamedia.com.tugasaksa4_saiful.adapter.PlayerAdapter
 import aksamedia.com.tugasaksa4_saiful.api.ApiRepository
 import aksamedia.com.tugasaksa4_saiful.contract.DetailView
-import aksamedia.com.tugasaksa4_saiful.model.Player
-import aksamedia.com.tugasaksa4_saiful.model.TeamDetail
+import aksamedia.com.tugasaksa4_saiful.model.Player.Player
+import aksamedia.com.tugasaksa4_saiful.model.TeamDetail.TeamDetail
 import aksamedia.com.tugasaksa4_saiful.presenter.DetailPresenter
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle

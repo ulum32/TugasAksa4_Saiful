@@ -7,13 +7,25 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:orientation="vertical"
         tools:context=".MainActivity">
-    <EditText
-            android:layout_width="match_parent"
-            android:layout_margin="16dp"
-            android:textStyle="italic"
-            android:id="@+id/search_team"
+    <!--<EditText-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_margin="16dp"-->
+            <!--android:textStyle="italic"-->
+            <!--android:id="@+id/search_team"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:hint="Search team"/>-->
+    <android.support.design.widget.AppBarLayout
             android:layout_height="wrap_content"
-            android:hint="Search team"/>
+            android:layout_width="match_parent"
+            android:theme="@style/AppTheme.AppBarOverlay">
+        <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:popupTheme="@style/AppTheme.PopupOverlay"/>
+    </android.support.design.widget.AppBarLayout>
+
     <Spinner
             android:layout_width="match_parent"
             android:layout_margin="16dp"

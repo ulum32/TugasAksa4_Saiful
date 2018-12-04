@@ -26,6 +26,8 @@ import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.find
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.support.v4.onRefresh
+import android.support.v4.view.MenuItemCompat.getActionView
+
 
 class MainActivity : AppCompatActivity(),AnkoLogger, MainView {
 
@@ -39,6 +41,8 @@ class MainActivity : AppCompatActivity(),AnkoLogger, MainView {
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setSupportActionBar(toolbar)
+
         setupSpiner()
         setupRecyclerview()
         setupPresenter()
@@ -58,18 +62,40 @@ class MainActivity : AppCompatActivity(),AnkoLogger, MainView {
             presenter.getTeamList(namaLiga)
         }
 
-        val search: EditText = find(R.id.search_team)
-        search.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(edit: Editable?) {
+//        val search: EditText = find(R.id.search_team)
+//        search.addTextChangedListener(object : TextWatcher {
+//            override fun afterTextChanged(edit: Editable?) {
+//            }
+//
+//            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+//            }
+//
+//            override fun onTextChanged(s: CharSequence?, position: Int, p2: Int, p3: Int) {
+//                adapter.filter.filter(s.toString())
+//            }
+//        })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+
+        val mSearch = menu.findItem(R.id.action_search)
+
+        val mSearchView = mSearch.actionView as SearchView
+        mSearchView.queryHint = "Search teams ..."
+
+        mSearchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                return false
             }
 
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, position: Int, p2: Int, p3: Int) {
-                adapter.filter.filter(s.toString())
+            override fun onQueryTextChange(newText: String): Boolean {
+                adapter.getFilter().filter(newText)
+                return true
             }
         })
+
+        return super.onCreateOptionsMenu(menu)
     }
 
     fun setupSpiner() {

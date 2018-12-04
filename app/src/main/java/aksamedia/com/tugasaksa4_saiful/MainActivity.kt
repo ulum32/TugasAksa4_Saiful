@@ -9,25 +9,25 @@ import aksamedia.com.tugasaksa4_saiful.presenter.MainPresenter
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.BaseAdapter
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.support.v4.onRefresh
 
-class MainActivity : AppCompatActivity(), MainView {
+class MainActivity : AppCompatActivity(),AnkoLogger, MainView {
 
     private lateinit var presenter: MainPresenter
     private lateinit var adapter: TeamAdapter
-    private lateinit var spinnerAdapter:ArrayAdapter<League>
+    private lateinit var spinnerAdapter:ArrayAdapter<String>
     private var data_tim: MutableList<Team> = mutableListOf()
-    private var data_liga:MutableList<League> = mutableListOf()
+    private var data_liga:MutableList<String> = mutableListOf()
     private lateinit var namaLiga :String
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setupSpiner()
@@ -56,7 +56,9 @@ class MainActivity : AppCompatActivity(), MainView {
     }
 
     fun setupRecyclerview(){
-        adapter = TeamAdapter(this, data_tim)
+        adapter = TeamAdapter(this, data_tim){
+            startActivity<TeamDetailActivity>("id" to "${it.teamId}")
+        }
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
     }
@@ -85,8 +87,9 @@ class MainActivity : AppCompatActivity(), MainView {
     override fun showListLiga(data: List<League>) {
         swipeRefresh.isRefreshing = false
         data_liga.clear()
-        data_liga.addAll(data)
-        Log.i("nama Liga",""+data[0].leagueName)
+        for (i in 0 until data.size){
+            data_liga.add(data[i].strLeague.toString())
+        }
         spinnerAdapter.notifyDataSetChanged()
     }
 }

@@ -6,17 +6,19 @@ import aksamedia.com.tugasaksa4_saiful.contract.MainView
 import aksamedia.com.tugasaksa4_saiful.model.LeagueResponse
 import aksamedia.com.tugasaksa4_saiful.model.TeamResponse
 import com.google.gson.Gson
+import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.info
 import org.jetbrains.anko.uiThread
 
 class MainPresenter(private val view: MainView,
                     private val apiRepository: ApiRepository,
-                    private val gson: Gson) {
+                    private val gson: Gson):AnkoLogger {
     fun getTeamList(league: String?) {
         view.showLoading()
         doAsync {
             val data1 = gson.fromJson(apiRepository
-                    .lakukanRequest1(EndpointApi.tampilkanTim(league)),
+                    .lakukanRequest(EndpointApi.tampilkanTim(league)),
                     TeamResponse::class.java
             )
 
@@ -32,7 +34,7 @@ class MainPresenter(private val view: MainView,
     fun getListLiga(){
         view.showLoading()
         doAsync {
-            val data2 = gson.fromJson(apiRepository.lakukanRequest2
+            val data2 = gson.fromJson(apiRepository.lakukanRequest
                 (EndpointApi.tampilkanListLiga()),
                 LeagueResponse::class.java
             )
@@ -40,8 +42,8 @@ class MainPresenter(private val view: MainView,
 
             uiThread {
                 view.hideLoading()
-                data2.league?.let{
-                    view.showListLiga(data2.league)
+                data2.leagues?.let{
+                    view.showListLiga(data2.leagues)
                 }
             }
         }

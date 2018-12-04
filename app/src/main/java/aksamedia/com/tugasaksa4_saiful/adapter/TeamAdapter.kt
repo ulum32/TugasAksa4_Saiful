@@ -10,23 +10,26 @@ import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.team_item.view.*
 
-class TeamAdapter(private val context: Context, private val items: List<Team>)
+class TeamAdapter(private val context: Context, private val items: List<Team>, private val listener: (Team) -> Unit)
     : RecyclerView.Adapter<TeamAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
             ViewHolder(LayoutInflater.from(context).inflate(R.layout.team_item, parent, false))
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindItem(items[position])
+        holder.bindItem(items[position],listener)
     }
 
     override fun getItemCount(): Int = items.size
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view){
-        fun bindItem(items: Team) {
+        fun bindItem(items: Team, listener: (Team) -> Unit) {
             itemView.clubName.text = items.teamName
             items.teamBadge.let {
                 Glide.with(itemView).load(it).into(itemView.imageFlag)
+            }
+            itemView.setOnClickListener {
+                listener(items)
             }
         }
     }

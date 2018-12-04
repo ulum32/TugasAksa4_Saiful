@@ -1,10 +1,9 @@
 package aksamedia.com.tugasaksa4_saiful.presenter
 
-import aksamedia.com.tugasaksa4_saiful.TeamDetailActivity
 import aksamedia.com.tugasaksa4_saiful.api.ApiRepository
 import aksamedia.com.tugasaksa4_saiful.api.EndpointApi
 import aksamedia.com.tugasaksa4_saiful.contract.DetailView
-import aksamedia.com.tugasaksa4_saiful.model.TeamDetail
+import aksamedia.com.tugasaksa4_saiful.model.PlayerResponse
 import aksamedia.com.tugasaksa4_saiful.model.TeamDetailResponse
 import com.google.gson.Gson
 import org.jetbrains.anko.AnkoLogger
@@ -26,6 +25,23 @@ class DetailPresenter(private val view: DetailView,
                     view.hideLoading()
                     data.teams?.let{
                         view.showDetailTeam(data.teams)
+                    }
+                }
+            }
+        }
+
+        fun getPlayer(player_list:String){
+            view.showLoading()
+            doAsync {
+                val data = gson.fromJson(apiRepository
+                    .lakukanRequest(EndpointApi.tampilkanPlayer(player_list)),
+                    PlayerResponse::class.java
+                )
+
+                uiThread {
+                    view.hideLoading()
+                    data.player?.let{
+                        view.showPlayer(data.player)
                     }
                 }
             }

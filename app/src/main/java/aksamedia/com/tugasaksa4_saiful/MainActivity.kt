@@ -6,15 +6,24 @@ import aksamedia.com.tugasaksa4_saiful.contract.MainView
 import aksamedia.com.tugasaksa4_saiful.model.League
 import aksamedia.com.tugasaksa4_saiful.model.Team
 import aksamedia.com.tugasaksa4_saiful.presenter.MainPresenter
+import android.app.SearchManager
+import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.Menu
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.EditText
+import android.widget.SearchView
 import com.google.gson.Gson
+import com.mancj.materialsearchbar.MaterialSearchBar
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.find
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.support.v4.onRefresh
 
@@ -48,6 +57,19 @@ class MainActivity : AppCompatActivity(),AnkoLogger, MainView {
             presenter.getListLiga()
             presenter.getTeamList(namaLiga)
         }
+
+        val search: EditText = find(R.id.search_team)
+        search.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(edit: Editable?) {
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, position: Int, p2: Int, p3: Int) {
+                adapter.filter.filter(s.toString())
+            }
+        })
     }
 
     fun setupSpiner() {
